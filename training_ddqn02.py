@@ -23,10 +23,10 @@ render_mode = "rgb_array"
 
 
 model_name = sys.argv[1]
-max_step_episode = sys.argv[2]
-exploration_fraction = sys.argv[3]
-train_freq = sys.argv[4]
-random_initial_position = sys.argv[5]
+max_step_episode = int(sys.argv[2])
+exploration_fraction = float(sys.argv[3])
+train_freq = int(sys.argv[4])
+random_initial_position = bool(sys.argv[5])
 
 
 unique_id = datetime.now().strftime("%Y_%m_%d__%H_%M_%S")
