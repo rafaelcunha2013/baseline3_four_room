@@ -27,6 +27,7 @@ max_step_episode = int(sys.argv[2])
 exploration_fraction = float(sys.argv[3])
 train_freq = int(sys.argv[4])
 random_initial_position = bool(sys.argv[5])
+target_update_interval = int(sys.argv[6])
 
 
 unique_id = datetime.now().strftime("%Y_%m_%d__%H_%M_%S")
@@ -57,6 +58,7 @@ model = DDQN("MlpPolicy",
              tensorboard_log=tensorboard_log,
              exploration_fraction=exploration_fraction,
              train_freq=train_freq,
+             target_update_interval=target_update_interval,
              verbose=0)
 
 model.learn(total_timesteps=20_000_000,
