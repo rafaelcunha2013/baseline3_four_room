@@ -21,14 +21,22 @@ from ddqn import DDQN
 max_step = 500
 render_mode = "rgb_array"
 
-
-model_name = sys.argv[1]
-max_step_episode = int(sys.argv[2])
-exploration_fraction = float(sys.argv[3])
-train_freq = int(sys.argv[4])
-random_initial_position = bool(sys.argv[5])
-target_update_interval = int(sys.argv[6])
-
+if platform.system() == 'Linux':
+    root = '/data/p285087/four_room/'
+    model_name = sys.argv[1]
+    max_step_episode = int(sys.argv[2])
+    exploration_fraction = float(sys.argv[3])
+    train_freq = int(sys.argv[4])
+    random_initial_position = bool(sys.argv[5])
+    target_update_interval = int(sys.argv[6])
+else:
+    root = os.getcwd()
+    model_name = "DDQN"
+    max_step_episode = 500
+    exploration_fraction = 0.1
+    train_freq = 4
+    random_initial_position = False
+    target_update_interval = 10_000
 
 unique_id = datetime.now().strftime("%Y_%m_%d__%H_%M_%S")
 env = gym.make("four-room-v0",
@@ -38,10 +46,10 @@ env = gym.make("four-room-v0",
 
 print('Start training')
 # Check in which system the code is running. Used to select the right path
-if platform.system() == 'Linux':
-    root = '/data/p285087/four_room/'
-else:
-    root = os.getcwd()
+# if platform.system() == 'Linux':
+#     root = '/data/p285087/four_room/'
+# else:
+#     root = os.getcwd()
 tensorboard_log = os.path.join(root, 'stable_baselines3', model_name, unique_id)
 
 check_path = os.path.join(tensorboard_log, "logs/")
