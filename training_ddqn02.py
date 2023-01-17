@@ -39,10 +39,11 @@ else:
     target_update_interval = 10_000
 
 unique_id = datetime.now().strftime("%Y_%m_%d__%H_%M_%S")
-env = gym.make("four-room-v0",
+env = gym.make("four-room-multiagent-v0",
                render_mode=render_mode,
                max_episode_steps=max_step_episode,
-               random_initial_position=random_initial_position)
+               random_initial_position=random_initial_position,
+               max_num_agents=2)
 
 print('Start training')
 # Check in which system the code is running. Used to select the right path
@@ -69,7 +70,7 @@ model = DDQN("MlpPolicy",
              target_update_interval=target_update_interval,
              verbose=0)
 
-model.learn(total_timesteps=20_000_000,
+model.learn(total_timesteps=40_000_000,
             tb_log_name=model_name,
             callback=[checkpoint_callback, eval_callback],
             reset_num_timesteps=False,
